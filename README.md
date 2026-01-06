@@ -16,13 +16,7 @@ This repository provides the implementation of our **Clean and Consistent MLS Po
 
 🚀 The source code will be released once our paper is accepted. Please stay tuned!
 
-### **1.2 Related video**
 
-Our accompanying videos are now available on **YouTube** (click below images to open) and [**Bilibili**](https://www.bilibili.com/video/123).
-
-<div align="center">
-<a href="https://www.youtube.com/123" target="_blank"><img src="img/cover.bmp" alt="video" width="60%" /></a>
-</div>
 
 
 ## 2. Prerequisites
