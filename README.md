@@ -12,7 +12,7 @@ This repository provides the implementation of our **Clean and Consistent MLS Po
 
 ### **1.1 Related paper**
 
-✨ Our related papers has been submitted to "XX  Journal".
+✨ Our related papers has been submitted to "ISPRS Journal of Photogrammetry and Remote Sensing".
 
 🚀 The source code will be released once our paper is accepted. Please stay tuned!
 
