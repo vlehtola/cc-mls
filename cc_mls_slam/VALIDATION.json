@@ -31,7 +31,6 @@
       "M-detector-main.zip",
       "FAST_LIO_SLAM-main.zip"
     ],
-    "report": "docs/全库环境与运行审查.md",
     "compile": "NOT RUN",
     "gtest": "NOT RUN",
     "runtime": "NOT RUN",
@@ -42,7 +41,6 @@
     "tests_added": "timed fields, row padding, endianness, limits, invalid storage",
     "compile": "NOT RUN",
     "gtest": "NOT RUN",
-    "rosbag": "NOT RUN",
-    "report": "docs/运行问题修复记录.md"
+    "rosbag": "NOT RUN"
   }
 }

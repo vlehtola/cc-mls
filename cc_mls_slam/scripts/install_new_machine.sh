@@ -3,7 +3,7 @@
 set -eo pipefail
 source /etc/os-release
 if [[ "$ID" != ubuntu || "$VERSION_ID" != 20.04 ]]; then
-  echo "This installer targets Ubuntu 20.04 + ROS Noetic. See docs/新电脑安装.md." >&2
+  echo "This installer targets Ubuntu 20.04 + ROS Noetic. Install ROS Noetic before running this script." >&2
   exit 1
 fi
 if [[ ! -f /opt/ros/noetic/setup.bash ]]; then

@@ -14,7 +14,7 @@ This repository provides the implementation of our **Clean and Consistent MLS Po
 
 ✨ Our related papers has been submitted to "ISPRS Journal of Photogrammetry and Remote Sensing".
 
-The integration baseline is now available below; see its validation status and implementation differences before use.
+The integration baseline is now available below; see its validation status before use.
 
 
 
@@ -86,9 +86,6 @@ It combines a two-pass FAST-LIO2 frontend, moving-object removal and a static-po
 Upstream copyright notices and component licenses are retained in the source and `cc_mls_slam/licenses/`.
 
 - [Build and usage](cc_mls_slam/README.md)
-- [Fresh-machine installation](cc_mls_slam/docs/新电脑安装.md)
-- [Implementation differences from the paper](cc_mls_slam/docs/算法与复现差异.md)
-- [Paper terminology and code naming](cc_mls_slam/docs/论文术语与代码命名.md)
 
 Target environment: Ubuntu 20.04, ROS Noetic, GCC 9/C++17 and GTSAM 4.2.
 Place the `cc_mls_slam` directory in a catkin workspace's `src/`, then run the included installation and verification scripts.

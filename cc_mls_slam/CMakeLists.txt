@@ -29,7 +29,7 @@ find_package(OpenMP REQUIRED)
 find_package(Threads REQUIRED)
 find_package(GTSAM 4.2 REQUIRED CONFIG)
 if(NOT TARGET gtsam)
-  message(FATAL_ERROR "GTSAM must export the gtsam target; see docs/新电脑安装.md")
+  message(FATAL_ERROR "GTSAM must export the gtsam target; install GTSAM 4.2 with system Eigen")
 endif()
 
 add_message_files(FILES Pose6D.msg)
@@ -89,4 +89,4 @@ install(TARGETS cc_mls_dynamic cc_mls_frontend cc_mls_backend
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(DIRECTORY include/ DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
   PATTERN "*.cpp" EXCLUDE)
-install(DIRECTORY launch config rviz_cfg licenses docs scripts DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY launch config rviz_cfg licenses scripts DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
