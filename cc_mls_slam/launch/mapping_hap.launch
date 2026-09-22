@@ -1,0 +1,37 @@
+<launch>
+  <!-- Driver: livox_ros_driver2 ROS1, xfer_format=0; LiDAR input is PointCloud2. -->
+  <arg name="max_scan_points" default="600000"/>
+  <!-- Based on FAST-LIO2 mapping launch; fused dynamic removal and backend. -->
+  <arg name="rviz" default="true"/>
+  <arg name="sensor_config" default="$(find cc_mls_slam)/config/hap.yaml"/>
+  <arg name="method_config" default="$(find cc_mls_slam)/config/fusion.yaml"/>
+  <arg name="backend" default="true"/>
+  <arg name="save_directory" default=""/>
+  <arg name="covisibility" default="true"/>
+  <rosparam command="load" file="$(arg sensor_config)"/>
+  <rosparam command="load" file="$(arg method_config)"/>
+  <param name="preprocess/max_input_points" type="int" value="$(arg max_scan_points)"/>
+  <param name="dyn_obj/points_num_perframe" type="int" value="$(arg max_scan_points)"/>
+  <param name="dyn_obj/buffer_size" type="int" value="$(arg max_scan_points)"/>
+  <param name="runtime_pos_log_enable" type="bool" value="false"/>
+  <param name="pcd_save_enable" type="bool" value="false"/>
+  <param name="feature_extract_enable" value="false"/>
+  <param name="point_filter_num" value="1"/>
+  <param name="max_iteration" value="4"/>
+  <param name="filter_size_surf" value="0.5"/>
+  <param name="filter_size_map" value="0.5"/>
+  <param name="cube_side_length" value="1000.0"/>
+  <param name="publish/scan_publish_en" value="true"/>
+  <param name="publish/scan_bodyframe_pub_en" value="true"/>
+  <node pkg="cc_mls_slam" type="cc_mls_frontend" name="laserMapping" output="screen" required="true"/>
+  <node if="$(arg backend)" pkg="cc_mls_slam" type="cc_mls_backend" name="cc_mls_backend" output="screen" required="true">
+    <param name="save_directory" value="$(arg save_directory)"/>
+    <param name="covisibility_enabled" value="$(arg covisibility)"/>
+    <param name="sc_distance_threshold" value="0.2"/>
+    <param name="keyframe_distance" value="2.0"/>
+    <param name="keyframe_angle_deg" value="10.0"/>
+  </node>
+  <group if="$(arg rviz)">
+    <node pkg="rviz" type="rviz" name="rviz" launch-prefix="nice" args="-d $(find cc_mls_slam)/rviz_cfg/loam_livox.rviz"/>
+  </group>
+</launch>

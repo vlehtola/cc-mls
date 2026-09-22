@@ -1,0 +1,179 @@
+#ifndef PARALLEL_Q_H
+#define PARALLEL_Q_H
+#include <cassert>
+#include <stdexcept>
+#include <cstdio>
+
+template <typename T>
+class PARALLEL_Q
+{
+private:
+    int counter = 0;
+    int Q_LEN;
+    bool is_empty = true, initialized = false;
+public:
+    T * q;
+    int head = 0, tail = 0;
+    PARALLEL_Q();
+    PARALLEL_Q(int len);
+    ~PARALLEL_Q();
+    PARALLEL_Q(const PARALLEL_Q&) = delete;
+    PARALLEL_Q& operator=(const PARALLEL_Q&) = delete;
+    void init(int len);
+    void pop();
+    T front();
+    T back();
+    void clear();
+    void push(T op);
+    void push_parallel(T &op, int index);
+    void push_pos(T &op, int index);
+    void push_parallel_prepare(int length);
+    bool empty();
+    int size();
+};
+
+template <typename T>
+PARALLEL_Q<T>::PARALLEL_Q()
+{
+    initialized = false;
+}
+
+template <typename T>
+PARALLEL_Q<T>::PARALLEL_Q(int len)
+{
+    if (len <= 0) throw std::invalid_argument("Queue capacity must be positive");
+    Q_LEN = len;
+    q = new T[Q_LEN];
+    initialized = true;
+}
+
+template <typename T>
+PARALLEL_Q<T>::~PARALLEL_Q()
+{
+    if (initialized) delete [] q;
+}
+
+template <typename T>
+void PARALLEL_Q<T>::init(int len)
+{
+    if (len <= 0) throw std::invalid_argument("Queue capacity must be positive");
+    Q_LEN = len;
+    q = new T[Q_LEN];
+    initialized = true;
+}
+
+template <typename T>
+void PARALLEL_Q<T>::pop()
+{
+    assert(initialized && "Queue is not initialized!");
+    if (counter == 0)
+        return;
+    head++;
+    head %= Q_LEN;
+    counter--;
+    if (counter == 0)
+        is_empty = true;
+    return;
+}
+
+template <typename T>
+T PARALLEL_Q<T>::front()
+{
+    assert(initialized && "Queue is not initialized!");
+    return q[head];
+}
+
+template <typename T>
+T PARALLEL_Q<T>::back()
+{
+    assert(initialized && "Queue is not initialized!");
+    return q[(tail + Q_LEN -1) % Q_LEN];
+}
+
+template <typename T>
+void PARALLEL_Q<T>::clear()
+{
+    assert(initialized && "Queue is not initialized!");
+    head = 0;
+    tail = 0;
+    counter = 0;
+    is_empty = true;
+    return;
+}
+
+template <typename T>
+void PARALLEL_Q<T>::push(T op)
+{
+    assert(initialized && "Queue is not initialized!");
+    if (counter == Q_LEN)
+    {
+        printf("Queue FULL. Head Element Popped! ");
+        pop();
+    }
+    q[tail] = op;
+    counter++;
+    if (is_empty)
+        is_empty = false;
+    tail++;
+    tail %= Q_LEN;
+}
+
+template <typename T>
+void PARALLEL_Q<T>::push_pos(T &op, int index)
+{
+    assert(initialized && "Queue is not initialized!");
+    if (counter == Q_LEN)
+    {
+        printf("Queue FULL. Head Element Popped! ");
+        pop();
+    }
+    counter++;
+    index %= Q_LEN;
+    q[index] = op;
+    if (is_empty)
+        is_empty = false;
+    tail++;
+    tail %= Q_LEN;
+}
+
+template <typename T>
+void PARALLEL_Q<T>::push_parallel(T &op, int index)
+{   
+    assert(initialized && "Queue is not initialized!");
+    index %= Q_LEN;
+    q[index] = op;
+}
+
+template <typename T>
+void PARALLEL_Q<T>::push_parallel_prepare(int length)
+{
+    assert(initialized && "Queue is not initialized!");
+    if (length < 0 || length > Q_LEN - counter)
+        throw std::length_error("M-detector delayed queue capacity exceeded");
+    if (counter == Q_LEN)
+    {
+        printf("Queue FULL. Head Element Popped! ");
+        pop();
+    }
+    counter += length;
+    if (is_empty)
+        is_empty = false;
+    tail += length;
+    tail %= Q_LEN;
+}
+
+template <typename T>
+bool PARALLEL_Q<T>::empty()
+{
+    assert(initialized && "Queue is not initialized!");
+    return is_empty;
+}
+
+template <typename T>
+int PARALLEL_Q<T>::size()
+{
+    assert(initialized && "Queue is not initialized!");
+    return counter;
+} 
+
+#endif

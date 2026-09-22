@@ -1,0 +1,30 @@
+# Requires numeric PointCloud2 x/y/z/intensity/t/ring; t relative nanoseconds, ring 0..127.
+# UINT8/UINT16 ring and organized row padding are supported.
+# Sensor parameters must be checked against the recording and calibration.
+# extrinsic_R is also a placeholder identity rotation.
+common:
+    lid_topic:  "/os_cloud_node/points"
+    imu_topic:  "/os_cloud_node/imu"
+    time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
+    
+preprocess:
+    lidar_type: 3                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
+    scan_line:  128
+    blind: 4
+
+mapping:
+    acc_cov: 0.1
+    gyr_cov: 0.1
+    b_acc_cov: 0.0001
+    b_gyr_cov: 0.0001
+    fov_degree:    360
+    det_range:     150.0
+    extrinsic_T: [0.0, 0.0, 0.0] # Placeholder: replace with calibrated LiDAR-to-IMU translation.
+    extrinsic_R: [ 1, 0, 0,
+                   0, 1, 0,
+                   0, 0, 1]
+
+publish:     
+    scan_publish_en:  true       # 'false' will close all the point cloud output
+    dense_publish_en: true       # false will low down the points number in a global-frame point clouds scan.
+    scan_bodyframe_pub_en: true  # output the point cloud scans in IMU-body-frame

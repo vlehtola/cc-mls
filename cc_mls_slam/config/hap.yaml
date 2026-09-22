@@ -1,0 +1,33 @@
+# HAP: livox_ros_driver2 ROS1, xfer_format=0 (PointCloud2).
+# timestamp is relative nanoseconds in the official driver2 layout.
+# Synchronized IMU and calibrated extrinsics remain required.
+common:
+    lid_topic:  "/livox/lidar"
+    imu_topic:  "/imu/data"
+    time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
+    
+preprocess:
+    lidar_type: 4                # Livox driver2 ROS1 PointCloud2 (HAP) 
+    scan_line:  128 # upper bound for line IDs, not physical beam count
+    blind: 4
+    point_time_field: "timestamp"
+    point_time_scale_ms: 0.000001
+    max_scan_duration_ms: 500.0
+    max_input_points: 600000
+
+mapping:
+    acc_cov: 0.1
+    gyr_cov: 0.1
+    b_acc_cov: 0.0001
+    b_gyr_cov: 0.0001
+    fov_degree:    100
+    det_range:     260.0
+    extrinsic_T: [0.0, 0.0, 0.0] # Placeholder: replace with calibrated LiDAR-to-IMU translation.
+    extrinsic_R: [ 1, 0, 0,
+                   0, 1, 0,
+                   0, 0, 1]
+
+publish:     
+    scan_publish_en:  true       # 'false' will close all the point cloud output
+    dense_publish_en: true       # false will low down the points number in a global-frame point clouds scan.
+    scan_bodyframe_pub_en: true  # output the point cloud scans in IMU-body-frame

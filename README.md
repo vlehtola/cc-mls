@@ -14,7 +14,7 @@ This repository provides the implementation of our **Clean and Consistent MLS Po
 
 ✨ Our related papers has been submitted to "ISPRS Journal of Photogrammetry and Remote Sensing".
 
-🚀 The source code will be released once our paper is accepted. Please stay tuned!
+The integration baseline is now available below; see its validation status and implementation differences before use.
 
 
 
@@ -78,3 +78,21 @@ The four private datasets were collected in Shanghai, China, across four urban r
 The source code is released under [GPLv2](http://www.gnu.org/licenses/) license.
 
 
+
+## Integrated ROS 1 source package
+
+The current integration baseline is available in [`cc_mls_slam/`](cc_mls_slam/).
+It combines a two-pass FAST-LIO2 frontend, moving-object removal and a static-point-cloud pose-graph backend.
+Upstream copyright notices and component licenses are retained in the source and `cc_mls_slam/licenses/`.
+
+- [Build and usage](cc_mls_slam/README.md)
+- [Fresh-machine installation](cc_mls_slam/docs/新电脑安装.md)
+- [Implementation differences from the paper](cc_mls_slam/docs/算法与复现差异.md)
+- [Paper terminology and code naming](cc_mls_slam/docs/论文术语与代码命名.md)
+
+Target environment: Ubuntu 20.04, ROS Noetic, GCC 9/C++17 and GTSAM 4.2.
+Place the `cc_mls_slam` directory in a catkin workspace's `src/`, then run the included installation and verification scripts.
+Launch entries are `mapping_ouster128.launch`, `mapping_horizon.launch` and `mapping_hap.launch`.
+
+**Validation status:** source/static checks only; Linux/ROS compilation, gtests and sensor/rosbag runs have not yet been performed.
+This integration baseline is not a validated reproduction of all paper experiments. HAP currently accepts driver2 `PointCloud2`; driver2 `CustomMsg` integration remains pending. Sensor extrinsics must be calibrated before use.
