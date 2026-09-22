@@ -79,17 +79,4 @@ The source code is released under [GPLv2](http://www.gnu.org/licenses/) license.
 
 
 
-## Integrated ROS 1 source package
 
-The current integration baseline is available in [`cc_mls_slam/`](cc_mls_slam/).
-It combines a two-pass FAST-LIO2 frontend, moving-object removal and a static-point-cloud pose-graph backend.
-Upstream copyright notices and component licenses are retained in the source and `cc_mls_slam/licenses/`.
-
-- [Build and usage](cc_mls_slam/README.md)
-
-Target environment: Ubuntu 20.04, ROS Noetic, GCC 9/C++17 and GTSAM 4.2.
-Place the `cc_mls_slam` directory in a catkin workspace's `src/`, then run the included installation and verification scripts.
-Launch entries are `mapping_ouster128.launch`, `mapping_horizon.launch` and `mapping_hap.launch`.
-
-**Validation status:** source/static checks only; Linux/ROS compilation, gtests and sensor/rosbag runs have not yet been performed.
-This integration baseline is not a validated reproduction of all paper experiments. HAP currently accepts driver2 `PointCloud2`; driver2 `CustomMsg` integration remains pending. Sensor extrinsics must be calibrated before use.
