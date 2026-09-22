@@ -71,9 +71,6 @@ We built a MLS collection system, which integrates a Livox HAP solid-state LiDAR
 The four private datasets were collected in Shanghai, China, across four urban regions, each containing diverse dynamic activity patterns. The recorded routes (Private\_01 to Private\_04) span between several hundred meters and over one kilometer. These areas were intentionally selected to capture high scene dynamics, including moving cars, pedestrians, and bicyclists under natural urban conditions. 
 
 
-### Acknowledgements 
-
-
 ### License 
 The source code is released under [GPLv2](http://www.gnu.org/licenses/) license.
 
